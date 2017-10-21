@@ -1,6 +1,6 @@
 # gcloud
-##Installation
-###Problems with installing tensorboard on MacOS
+## Installation
+### Problems with installing tensorboard on MacOS
 Even with python3 (via virtualenv) you might still have an error:
 ```
   File ".../tf/bin/tensorboard", line 69, in FindModuleSpace
