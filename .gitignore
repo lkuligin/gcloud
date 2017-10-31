@@ -1,2 +1,5 @@
 *.csv
 *.pyc
+*/target
+.idea
+.iml
