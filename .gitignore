@@ -2,4 +2,4 @@
 *.pyc
 */target
 .idea
-.iml
+*.iml
