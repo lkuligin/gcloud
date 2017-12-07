@@ -31,3 +31,7 @@ and create it if needed
 ```
 gsutil mb gs://test-1113
 ```
+### ssh to the VM
+```
+gcloud compute ssh earthquake-1 --zone="europe-west1-b"
+```
