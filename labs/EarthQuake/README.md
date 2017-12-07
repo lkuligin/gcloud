@@ -13,7 +13,7 @@ echo 'alias gsutil="~/Documents/tools/google-cloud-sdk/bin/gsutil"' >> ~/.bash_p
 ```
 Now we can use ```gcloud``` and ```gsutil``` directly from the Terminal.
 
-## Lab ifself
+## Lab itself
 ### Creating the instance and resources
 We need to create the instance (first, we check whether the instance exists).
 ```
