@@ -12,3 +12,22 @@ echo 'alias gcloud="~/Documents/tools/google-cloud-sdk/bin/gcloud"' >> ~/.bash_p
 echo 'alias gsutil="~/Documents/tools/google-cloud-sdk/bin/gsutil"' >> ~/.bash_profile
 ```
 Now we can use ```gcloud``` and ```gsutil``` directly from the Terminal.
+
+## Lab ifself
+### Creating the instance and resources
+We need to create the instance (first, we check whether the instance exists).
+```
+./launch.sh
+```
+Copying resources:
+```
+gcloud compute scp ./earthquake  earthquake-1:~ --recurse --zone="europe-west1-b"
+```
+Now we need to care about the bucket:
+```
+gsutil ls -b gs://test-1113
+```
+and create it if needed
+```
+gsutil mb gs://test-1113
+```
