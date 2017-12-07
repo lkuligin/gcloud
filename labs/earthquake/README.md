@@ -46,7 +46,7 @@ gsutil acl ch -u AllUsers:R gs://test-1113/earthquakes.png
 ```
 and clean it up 
 ```
-gsutil acl set private gs://test-1113/earthquakes.png
+acl ch -d AllUsers gs://test-1113/earthquakes.png
 ```
 copy results to the local machine (execute locally)
 ```
