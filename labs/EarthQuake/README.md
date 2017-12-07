@@ -44,4 +44,3 @@ copy results to the local machine (execute locally)
 ```
 gcloud compute scp earthquake-1:~/earthquake/earthquakes.png ~/Downloads/earthquakes.png --zone="europe-west1-b"
 ```
-```
