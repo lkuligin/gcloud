@@ -35,3 +35,13 @@ gsutil mb gs://test-1113
 ```
 gcloud compute ssh earthquake-1 --zone="europe-west1-b"
 ```
+### run the lab and get results
+Run on the VM
+```
+./run.sh
+```
+copy results to the local machine (execute locally)
+```
+gcloud compute scp earthquake-1:~/earthquake/earthquakes.png ~/Downloads/earthquakes.png --zone="europe-west1-b"
+```
+```
