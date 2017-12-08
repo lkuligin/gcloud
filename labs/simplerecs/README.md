@@ -10,7 +10,9 @@ gsutil cp ~/Downloads/accomodation.csv gs://test-1113
 gsutil cp ~/Downloads/rating.csv gs://test-1113
 ```
 ### Data exploration
-The best way to explore the data is via cloudshell since mysql is already installed
+The best way to explore the data is via cloudshell since mysql is already installed.
+There are two ways to connect:
+```mysql --host="35.189.215.238" --user=root --password``` or ```gcloud beta sql connect rentals --user=root```
 ### Predictions
 Create a dataproc cluster
 ```
