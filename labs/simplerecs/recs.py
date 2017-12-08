@@ -17,7 +17,7 @@ from pyspark.sql.types import StructType, StructField, StringType, FloatType
 CLOUDSQL_INSTANCE_IP = '35.189.215.238'
 CLOUDSQL_DB_NAME = 'recommendation_spark'
 CLOUDSQL_USER = 'root'
-CLOUDSQL_PWD  = '123u56' 
+CLOUDSQL_PWD  = '***' 
 
 class CloudSQLAgent:
   jdbcDriver = 'com.mysql.jdbc.Driver'
