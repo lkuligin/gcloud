@@ -40,6 +40,14 @@ Run on the VM
 ```
 ./run.sh
 ```
+create a public link for the picture
+```
+gsutil acl ch -u AllUsers:R gs://test-1113/earthquakes.png
+```
+and clean it up 
+```
+acl ch -d AllUsers gs://test-1113/earthquakes.png
+```
 copy results to the local machine (execute locally)
 ```
 gcloud compute scp earthquake-1:~/earthquake/earthquakes.png ~/Downloads/earthquakes.png --zone="europe-west1-b"
