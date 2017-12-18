@@ -26,7 +26,7 @@ mvn compile -e exec:java \
 cat  /tmp/output.csv 
 ```
 ### Lab3
-Run this:
+[Description](https://codelabs.developers.google.com/codelabs/cpb101-bigquery-dataflow-sideinputs). Run this:
 ```
 mvn test
 mvn compile -e exec:java -Dexec.mainClass=com.lkuligin.training.dataflow.JavaProjectsThatNeedHelp \
