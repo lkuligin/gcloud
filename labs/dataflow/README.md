@@ -1,3 +1,11 @@
+### Preparation
+Create BigQuery table:
+```
+curl -o ~/Downloads/schema_flight_performance.json https://storage.googleapis.com/cloud-training/CPB200/BQ/lab4/schema_flight_performance.json 
+bq mk $PROJECT_ID:example_flight_data
+bq load --nosync --source_format=NEWLINE_DELIMITED_JSON $PROJECT_ID:example_flight_data.flights_2014 gs://cloud-training/CPB200/BQ/lab4/domestic_2014_flights_*.json ~/Downloads/schema_flight_performance.json
+bq ls $PROJECT_ID:example_flight_data
+```
 ### Lab1
 The description could be found [here](https://codelabs.developers.google.com/codelabs/cpb101-simple-dataflow/). Run the grep example locally:
 ```
