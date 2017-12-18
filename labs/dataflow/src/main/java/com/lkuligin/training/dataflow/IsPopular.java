@@ -1,5 +1,8 @@
 package com.lkuligin.training.dataflow;
 
+import static com.lkuligin.training.dataflow.PackageParser.getPackages;
+
+import java.util.List;
 import org.apache.beam.sdk.Pipeline;
 import org.apache.beam.sdk.io.TextIO;
 import org.apache.beam.sdk.options.Default;
@@ -7,30 +10,27 @@ import org.apache.beam.sdk.options.Description;
 import org.apache.beam.sdk.options.PipelineOptions;
 import org.apache.beam.sdk.options.PipelineOptionsFactory;
 import org.apache.beam.sdk.transforms.DoFn;
+import org.apache.beam.sdk.transforms.PTransform;
 import org.apache.beam.sdk.transforms.ParDo;
 import org.apache.beam.sdk.transforms.Sum;
 import org.apache.beam.sdk.transforms.Top;
 import org.apache.beam.sdk.values.KV;
 import org.apache.beam.sdk.values.PCollection;
-import org.apache.beam.sdk.transforms.PTransform;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class IsPopular {
     public interface IsPopularOptions extends PipelineOptions {
         @Description("Output prefix")
-        @Default.String("/tmp/output")
+        @Default.String("/tmp/output.csv")
         String getOutputPrefix();
         void setOutputPrefix(String s);
 
         @Description("Input directory")
-        @Default.String("src/main/java/com/google/cloud/training/dataanalyst/javahelp/")
+        @Default.String("src/main/java/com/lkuligin/training/dataflow/*.java")
         String getInputDir();
         void setInputDir(String s);
 
         @Description("Keyword to search")
-        @Default.String("")
+        @Default.String("import")
         String getKeyword();
         void setKeyword(String s);
 
@@ -118,32 +118,6 @@ public class IsPopular {
                 .apply(TextIO.write().to(outputPrefix).withoutSharding());
 
         p.run();
-    }
-
-    private static List<String> getPackages(String line, String keyword) {
-        int start = line.indexOf(keyword) + keyword.length();
-        int end = line.indexOf(";", start);
-        if (start < end) {
-            String packageName = line.substring(start, end).trim();
-            return splitPackageName(packageName);
-        }
-        return new ArrayList<>();
-    }
-
-    private static List<String> splitPackageName(String packageName) {
-        // e.g. given com.example.appname.library.widgetname
-        // returns com
-        // com.example
-        // com.example.appname
-        // etc.
-        List<String> result = new ArrayList<>();
-        int end = packageName.indexOf('.');
-        while (end > 0) {
-            result.add(packageName.substring(0, end));
-            end = packageName.indexOf('.', end + 1);
-        }
-        result.add(packageName);
-        return result;
     }
 
 }
