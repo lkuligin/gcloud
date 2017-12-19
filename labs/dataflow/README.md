@@ -41,3 +41,32 @@ mvn compile -e exec:java -Dexec.mainClass=com.lkuligin.training.dataflow.JavaPro
  -Dexec.args="--project=$PROJECT_ID --stagingLocation=gs://$PROJECT_ID/staging --tempLocation=gs://$PROJECT_ID/staging/ \
  --outputPrefix=gs://$PROJECT_ID/test/output2.csv --runner=DataflowRunner"
 ```
+### Lab4
+[Description](https://codelabs.developers.google.com/codelabs/cpb101-bigquery-dataflow-streaming). Preparation:
+```
+bq mk $PROJECT_ID:demos
+gcloud pubsub topics create streamdemo --project=$PROJECT_ID
+```
+Run the streaming job, publish manually some messages to the PubSub topic (with certain delay between the messages!) and inspect the result:
+```
+mvn test
+mvn compile -e exec:java -Dexec.mainClass=com.lkuligin.training.dataflow.StreamDemoConsumer \
+	-Dexec.args="--project=$PROJECT_ID --stagingLocation=gs://$PROJECT_ID/staging/ \
+    --tempLocation=gs://$PROJECT_ID/staging/ --output=$PROJECT_ID:demos.streamdemo \
+    --input=projects/$PROJECT_ID/topics/streamdemo --runner=DataflowRunner"
+
+gcloud pubsub topics publish streamdemo --message="line1 word1 test1" --project=$PROJECT_ID
+gcloud pubsub topics publish streamdemo --message="line2 word2 word3 test2" --project=$PROJECT_ID
+gcloud pubsub topics publish streamdemo --message="line1 word4 w5 w6 test1" --project=$PROJECT_ID
+gcloud pubsub topics publish streamdemo --message="line1 w7 w8 w9 w1 w12" --project=$PROJECT_ID
+
+bq query "SELECT timestamp, num_words from [$PROJECT_ID:demos.streamdemo] ORDER BY timestamp"
+```
+Cleanup:
+```
+gcloud pubsub topics delete streamdemo -project=$PROJECT_ID
+gcloud dataflow jobs list --project=$PROJECT_ID --status=active
+gcloud dataflow jobs cancel *** --region=us-central1 --project=$PROJECT_ID
+gcloud pubsub topics delete streamdemo -project=$PROJECT_ID
+bq rm -f -t $PROJECT_ID:demos.streamdemo
+```
